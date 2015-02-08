@@ -76,9 +76,8 @@ class ViewController: UIViewController {
     
     @IBAction func clear() {
         userIsInTheMiddleOfTypingANumber = false
-        //if brain.performClear() {
-        //    displayValue = 0.0
-        //}
+        display.text = "0.0"
+        brain.performClear()
      }
     
     
