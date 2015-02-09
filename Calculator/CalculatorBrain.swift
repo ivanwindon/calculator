@@ -1,5 +1,5 @@
 //
-//  CalculatorBrian.swift
+//  CalculatorBrain.swift
 //  Calculator
 //
 //  Created by Ivan Windon on 2/7/15.
@@ -14,6 +14,7 @@ class CalculatorBrain
         case Operand(Double)
         case UnaryOperation(String, Double -> Double)
         case BinaryOperation(String, (Double, Double) -> Double)
+        case ConstantOperation(String, Double)
         
         var description: String {
             get {
@@ -23,6 +24,8 @@ class CalculatorBrain
                 case .UnaryOperation(let symbol, _):
                     return symbol
                 case .BinaryOperation(let symbol, _):
+                    return symbol
+                case .ConstantOperation(let symbol, _):
                     return symbol
                 }
             }
@@ -43,7 +46,7 @@ class CalculatorBrain
         learnOp(Op.BinaryOperation("+", +))
         learnOp(Op.BinaryOperation("−") { $1 - $0 })
         learnOp(Op.UnaryOperation("√", sqrt))
-        // learnOp(Op.UnaryOperation("π", M_PI))
+        learnOp(Op.ConstantOperation("π", M_PI))
         learnOp(Op.UnaryOperation("sin", sin))
         learnOp(Op.UnaryOperation("cos", cos))
     }
@@ -69,7 +72,10 @@ class CalculatorBrain
                         return (operation(operand1, operand2), op2Evaluation.remainingOps)
                     }
                 }
+            case .ConstantOperation(_, let value):
+                return (value, remainingOps)
             }
+            
         }
         return (nil, ops)
     }

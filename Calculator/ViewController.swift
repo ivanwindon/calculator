@@ -63,7 +63,7 @@ class ViewController: UIViewController {
     
     @IBAction func pi() {
         userIsInTheMiddleOfTypingANumber = true
-        if display.text != "0" {
+        if display.text != "0.0" {
             enter()
             display.text = "\(x)"
             enter()
